@@ -11,11 +11,12 @@ alias cds="cd ~/Source/pl/"
 PS1="\[$(tput bold)\](\t)[\[$(tput setaf 6)\]\u@\h\[$(tput setaf 2)\] \w]>\[$(tput sgr0)\]"
 
 # Source the git bash completion file
-if [ -f /etc/bash_completion.d/git ]; then
-    source /etc/bash_completion.d/git
+if [ -f /usr/local/etc/bash_completion.d/git-completion.bash ]; then
+    source /usr/local/etc/bash_completion.d/git-completion.bash
+    source /usr/local/etc/bash_completion.d/git-prompt.sh
     GIT_PS1_SHOWDIRTYSTATE=1
     GIT_PS1_SHOWSTASHSTATE=1
-    PS1='\[$(tput bold)\](\t)[\[\e[1;32m\]\u@\[\[\e[1;32m\]\h\e[0m\]\[$(tput bold)\]]\e[0m\]\[\e[1;34m\]\[$(__git_ps1)\e[0m\] [\w]: '
+    PS1="\[$(tput bold)\](\t)[\[$(tput setaf 6)\]\u@\h\[$(tput setaf 2)\] \$(__git_ps1 \" (%s)\") \w]>\[$(tput sgr0)\]"
 fi
 
 export PS1
