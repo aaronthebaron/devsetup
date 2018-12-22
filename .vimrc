@@ -11,10 +11,32 @@ set term=xterm
 set background=dark
 set backupext=.bak
 set showmatch
-syntax on
+syntax enable
 set tabstop=4
+set softtabstop=4
 set expandtab
 set shiftwidth=4
-set softtabstop=4
 set background=dark
+set showcmd
 filetype indent on
+
+set incsearch
+set hlsearch
+
+" Show tabs and trailing whitespace
+set lcs=tab:\|\ ,trail:·
+set list
+" Strip trailing whitespace (,ss)
+function! StripWhitespace()
+        let save_cursor = getpos(".")
+        let old_query = getreg('/')
+        :%s/\s\+$//e
+        call setpos('.', save_cursor)
+        call setreg('/', old_query)
+endfunction
+noremap <leader>ss :call StripWhitespace()<CR>
+" Save a file as root (,W)
+" noremap <leader>W :w !sudo tee % > /dev/null<CR>
+
+"F5 to wipe out trailing whitespaces"
+nnoremap <F5> :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar><CR>
